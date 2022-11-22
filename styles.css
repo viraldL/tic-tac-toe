@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;800&display=swap');
 
 :root {
-    --d: #1d2f20;
-    --dd: #182b1c;
+    --d: #1c1917;
+    --dd: #292524;
     --w: #fffdfc;
-    --g: #60de97;
-    --b: #4599f9;
+    --r: #dc2626;
+    --b: #2563eb;
 }
 
 * {
@@ -13,6 +13,15 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
+}
+
+#bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -38,11 +47,12 @@ header {
 header::after {
     position: absolute;
     content: "Tic Tac Toe";
-    color: #182b1c65;
+    color: var(--dd);
     z-index: -1;
     font-weight: 600;
     font-size: 5rem;
     transform: translateX(50px);
+    opacity: 0.3;
 }
 
 header span {
@@ -55,7 +65,7 @@ header span {
 }
 
 .tic{
-    color: var(--g);
+    color: var(--r);
 }
 .tac{
     color: var(--b);
@@ -91,21 +101,23 @@ footer .copy {
 footer .copy::after {
     position: absolute;
     content: "Copyright &copy";
-    color: #182b1c;
+    color: var(--dd);
     z-index: -1;
     font-weight: 600;
     font-size: 1rem;
     transform: translate(-40px, -60px);
+    opacity: 0.4;
 }
 
 footer .copy::before {
     position: absolute;
     content: "viraldL 2022";
-    color: #182b1c;
+    color: var(--dd);
     z-index: -1;
     font-weight: 600;
     font-size: 1rem;
     transform: translate(50px, -20px);
+    opacity: 0.4;
 }
 
 footer .footerIcons span a img {
@@ -116,15 +128,48 @@ footer .footerIcons span a img:hover {
     transform: scale(1.1);
 }
 
-.show {
-    transition: all 1s ease-out;
-    opacity: 1;
-}
+
 
 .boardOn {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.chooseModeOn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 350px;
+}
+
+.twoPlayerBtn, .botGameBtn {
+    transition: all 0.5s ease-out;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: inset 22px 16px 68px -35px rgba(0, 0, 0, 0.966);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--w);
+    font-weight: 800;
+    font-size: 1.5rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transform: scale(0);
+}
+
+.twoPlayerBtn:hover, .botGameBtn:hover {
+    transform: translateY(-10px);
+}
+
+.twoPlayerBtn {
+    background-color: var(--r);
+}
+
+.botGameBtn {
+    background-color: var(--b);
 }
 
 main {
@@ -152,10 +197,32 @@ main .board .field {
     justify-content: center;
     font-size: 5rem;
     font-weight: 800;
-    color: var(--b);
-    text-shadow: 0 5px 30px #4599f981;
+    color: var(--r);
+    text-shadow: 0 5px 30px #dc26268a;
 }
 
 main .board .field:hover {
     transform: scale(1.05);
+}
+
+.show {
+    transition: all 1s ease-out;
+    opacity: 1;
+}
+
+.show2 {
+    transition: all 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+    transform: scale(1);
+}
+
+.slideLeft {
+    transform: scale(0) translateX(-350px);
+}
+
+.slideRight {
+    transform: scale(0) translateX(350px);
+}
+
+.hide {
+    opacity: 0;
 }
