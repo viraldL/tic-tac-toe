@@ -140,7 +140,14 @@ footer .footerIcons span a img:hover {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 0 350px;
+    padding: 0 20%;
+    gap: 10px;
+}
+
+.namePlayersOn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .twoPlayerBtn, .botGameBtn {
@@ -158,6 +165,7 @@ footer .footerIcons span a img:hover {
     cursor: pointer;
     letter-spacing: 0.1em;
     transform: scale(0);
+    flex-shrink: 0;
 }
 
 .twoPlayerBtn:hover, .botGameBtn:hover {
@@ -170,6 +178,97 @@ footer .footerIcons span a img:hover {
 
 .botGameBtn {
     background-color: var(--b);
+}
+
+.formBox {
+    width: 500px;
+    height: 300px;
+    transform: scale(0);
+}
+
+.playerForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.playerForm input[type="submit"] {
+    border: none;
+    padding: 2px 10px;
+    border-radius: 0 0 10px 10px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.playerForm input[type="submit"]:hover {
+    padding: 2px 15px;
+}
+
+.divPlayer1, .divPlayer2 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 45%;
+    box-shadow: inset 22px 16px 68px -35px rgba(0, 0, 0, 0.658);
+    overflow: hidden;
+}
+
+.divPlayer1::before {
+    content: "X";
+    position: absolute;
+    top: -90px;
+    left: -30px;
+    font-weight: 800;
+    font-size: 15rem;
+    opacity: 0.1;
+}
+
+.divPlayer2::after {
+    content: "O";
+    position: absolute;
+    top: -90px;
+    right: -30px;
+    font-weight: 800;
+    font-size: 15rem;
+    opacity: 0.1;
+}
+
+.inputPlayer {
+    border: none;
+    border-radius: 20px;
+    padding: 2px 5px;
+    outline: none;
+    transition: all 0.5s ease-out;
+}
+
+.inputPlayer:focus { 
+    box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.233);;
+}
+
+.divPlayer1 span, .divPlayer2 span {
+    color: var(--w);
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.divPlayer1 {
+    background-color: var(--r);
+    border-radius: 10px 10px 0 0;
+}
+
+
+.divPlayer2 {
+    background-color: var(--b);
+    border-radius: 0 0 10px 10px;
 }
 
 main {
