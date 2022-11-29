@@ -1,24 +1,61 @@
 const main = document.querySelector("main");
 let Player1;
 let Player2;
+let Bot;
 
 const gameBoard = (function(){
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
     const render = function() {
         const board = document.createElement("div");
         board.classList.add("board");
+        const boardBox = document.createElement("div");
+        boardBox.classList.add("boardBox")
+
+        const turnText = document.createElement("div");
+        turnText.classList.add("turnText");
+        turnText.innerHTML = `<span class="turnX">${Player1.nick}'s </span> turn!`;
+
+
+        //Player names boxes
+        const player1Box = document.createElement("div");
+        const player2Box = document.createElement("div");
+        const p1Txt = document.createElement("p");
+        const p2Txt = document.createElement("p");
+        p1Txt.classList.add("p1Txt");
+        p2Txt.classList.add("p2Txt");
+        p1Txt.innerText = `Player 1:`
+        p2Txt.innerText = `Player 2:`
+        player1Box.classList.add("player1Box");
+        player1Box.classList.add("turn");
+        player2Box.classList.add("player2Box");
+        if(Player1 != undefined && Player2 != undefined){
+            player1Box.appendChild(p1Txt);
+            player2Box.appendChild(p2Txt);
+            player1Box.innerText = Player1.nick;
+            player2Box.innerText = Player2.nick;
+        }
+
+
         for(let i = 1; i <= gameBoard.length; i++) {
             const field = document.createElement("div");
             field.classList.add("field");
             board.appendChild(field);
-            displayController.btnWork(field, gameBoard, i, field);
+            displayController.btnWork(field, gameBoard, i-1, field, turnText, player1Box, player2Box);
         }
         main.setAttribute("class", "");
         main.classList.add("boardOn");
 
-        main.appendChild(board);
+        //append things
+        boardBox.appendChild(turnText);
+        boardBox.appendChild(board);
+        main.appendChild(player1Box);
+        main.appendChild(boardBox);
+        main.appendChild(player2Box);
         setTimeout(() => {
+            turnText.classList.add("show2");
             board.classList.add("show2");
+            player1Box.classList.add("show2");
+            player2Box.classList.add("show2");
         }, 500)
     }
 
@@ -47,11 +84,30 @@ const chooseMode = (function() {
 })();
 
 const displayController = (function(){
-    const btnWork = function(btn, board, index, field) {
+    let turn = true;
+    const btnWork = function(btn, board, index, field, turnBox, p1Box, p2Box) {
         btn.addEventListener("click", () => {
-            board[index] = "x";
-            field.innerText = "X";
-            console.log(board);
+            if(turn) {
+                if(board[index] == ""){
+                    board[index] = "x";
+                    field.innerHTML = `<p class="x">X<p>`;
+                    turnBox.innerHTML = `<span class="turnO">${Player2.nick}'s </span> turn!`
+                    p1Box.classList.remove("turn");
+                    p2Box.classList.add("turn");
+                    console.log(board);
+                    turn = false;
+                }
+            } else {
+                if(board[index] == ""){
+                    board[index] = "o";
+                    field.innerHTML = `<p class="o">O<p>`;
+                    turnBox.innerHTML  = `<span class="turnX">${Player1.nick}'s </span> turn!`
+                    p2Box.classList.remove("turn");
+                    p1Box.classList.add("turn");
+                    console.log(board);
+                    turn = true;
+                }
+            }
         })
     }
 
