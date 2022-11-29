@@ -276,16 +276,17 @@ main {
     height: calc(100% - 175px);
 }
 
-main .board {
+.board {
     width: 400px;
     height: 400px;
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    transform: scale(0);
 }
 
-main .board .field {
+.board .field {
     position: relative;
     background-color: var(--dd);
     border-radius: 10px;
@@ -300,7 +301,7 @@ main .board .field {
     text-shadow: 0 5px 30px #dc26268a;
 }
 
-main .board .field:hover {
+.board .field:hover {
     transform: scale(1.05);
 }
 
@@ -324,4 +325,8 @@ main .board .field:hover {
 
 .hide {
     opacity: 0;
+}
+
+.hide2 {
+    transform: scale(0);
 }

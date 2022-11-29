@@ -1,4 +1,6 @@
 const main = document.querySelector("main");
+let Player1;
+let Player2;
 
 const gameBoard = (function(){
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
@@ -11,16 +13,20 @@ const gameBoard = (function(){
             board.appendChild(field);
             displayController.btnWork(field, gameBoard, i, field);
         }
+        main.setAttribute("class", "");
         main.classList.add("boardOn");
 
         main.appendChild(board);
+        setTimeout(() => {
+            board.classList.add("show2");
+        }, 500)
     }
 
     return { render };
 })();
 
-const Player = function(nick, mark) {
-    return {nick, mark};
+const Player = function(nick) {
+    return {nick};
 }
 
 const chooseMode = (function() {
@@ -50,6 +56,24 @@ const displayController = (function(){
     }
 
     return { btnWork }
+})();
+
+const formController = (function(){
+    const btnWork = function(btn, input1, input2, form) {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if(input1.value != "" && input2.value != ""){
+                     Player1 = Player(input1.value);
+                     Player2 = Player(input2.value);
+                    form.classList.add("hide2");
+                    setTimeout(() => {
+                        main.innerHTML = "";
+                        gameBoard.render();
+                    },500)
+                }
+            }) 
+        }
+    return { btnWork };
 })();
 
 const modeController = (function() {
@@ -89,6 +113,8 @@ const namePlayers = (function() {
         inputP1.setAttribute("placeholder", "Player 1 name");
         inputP1.setAttribute("required", "");
         inputP2.setAttribute("required", "");
+        inputP2.setAttribute("id", "P2NAME");
+        inputP1.setAttribute("id", "P1NAME");
         inputStart.setAttribute("type", "submit");
         inputStart.setAttribute("value", "Start!");
 
@@ -115,7 +141,7 @@ const namePlayers = (function() {
         }, 500)
 
         main.appendChild(formBox);
-        
+        formController.btnWork(inputStart, inputP1, inputP2, formBox);
     }
 
     return { render };
