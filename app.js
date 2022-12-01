@@ -2,9 +2,31 @@ const main = document.querySelector("main");
 let Player1;
 let Player2;
 let Bot;
+let turn = true;
 
 const gameBoard = (function(){
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+    const restart = function(turne, box) {
+        const restartBtn = document.createElement("div");
+        restartBtn.innerText = `Restart`;
+        restartBtn.classList.add("restartBtn");
+        box.appendChild(restartBtn);
+        restartBtn.addEventListener("click", () => {
+            for(let i = 1; i <= gameBoard.length; i++) {
+                gameBoard[i-1] = "";
+                const field = document.querySelectorAll(".field");
+                field[i-1].innerText = "";
+            }
+            turne.innerHTML = `<span class="turnX">${Player1.nick}'s </span> turn!`;
+            turn = true;
+        console.log(gameBoard);
+        });
+        setTimeout(() => {
+            restartBtn.classList.add("show2");
+        }, 500);
+    }
+
     const render = function() {
         const board = document.createElement("div");
         board.classList.add("board");
@@ -26,7 +48,6 @@ const gameBoard = (function(){
         p1Txt.innerText = `Player 1:`
         p2Txt.innerText = `Player 2:`
         player1Box.classList.add("player1Box");
-        player1Box.classList.add("turn");
         player2Box.classList.add("player2Box");
         if(Player1 != undefined && Player2 != undefined){
             player1Box.appendChild(p1Txt);
@@ -48,6 +69,7 @@ const gameBoard = (function(){
         //append things
         boardBox.appendChild(turnText);
         boardBox.appendChild(board);
+        restart(turnText, boardBox);
         main.appendChild(player1Box);
         main.appendChild(boardBox);
         main.appendChild(player2Box);
@@ -59,7 +81,7 @@ const gameBoard = (function(){
         }, 500)
     }
 
-    return { render };
+    return { render , restart };
 })();
 
 const Player = function(nick) {
@@ -84,7 +106,6 @@ const chooseMode = (function() {
 })();
 
 const displayController = (function(){
-    let turn = true;
     const btnWork = function(btn, board, index, field, turnBox, p1Box, p2Box) {
         btn.addEventListener("click", () => {
             if(turn) {
@@ -92,8 +113,7 @@ const displayController = (function(){
                     board[index] = "x";
                     field.innerHTML = `<p class="x">X<p>`;
                     turnBox.innerHTML = `<span class="turnO">${Player2.nick}'s </span> turn!`
-                    p1Box.classList.remove("turn");
-                    p2Box.classList.add("turn");
+
                     console.log(board);
                     turn = false;
                 }
@@ -102,8 +122,6 @@ const displayController = (function(){
                     board[index] = "o";
                     field.innerHTML = `<p class="o">O<p>`;
                     turnBox.innerHTML  = `<span class="turnX">${Player1.nick}'s </span> turn!`
-                    p2Box.classList.remove("turn");
-                    p1Box.classList.add("turn");
                     console.log(board);
                     turn = true;
                 }

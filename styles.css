@@ -433,6 +433,26 @@ main {
     transform: scale(1.05);
 }
 
+.restartBtn {
+    margin-top: 20px;
+    width: 75px;
+    height: 40px;
+    background-color: var(--w);
+    color: var(--d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.205);
+    transform: scale(0);
+}
+
+.restartBtn:hover {
+    width: 80px;
+}
+
 .show {
     transition: all 1s ease-out;
     opacity: 1;
