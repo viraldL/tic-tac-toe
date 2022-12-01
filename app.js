@@ -2,10 +2,54 @@ const main = document.querySelector("main");
 let Player1;
 let Player2;
 let Bot;
-let turn = true;
+let turn = "x";
+const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
 const gameBoard = (function(){
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+    const checkWin = function(winBox) {
+        let roundWon = false;
+        for(let i = 0; i <= winConditions.length-1; i++) {
+            const condition = winConditions[i];
+            const cell1 = gameBoard[condition[0]];
+            const cell2 = gameBoard[condition[1]];
+            const cell3 = gameBoard[condition[2]];
+
+            if(cell1 == "" || cell2 == "" || cell3 == ""){
+                continue;
+            }
+            if(cell1 == cell2 && cell2 == cell3){
+                roundWon = true;
+                break;
+            } 
+        }
+
+        if(roundWon){
+            console.log(turn)
+            if(turn === "o"){
+                winBox.innerHTML = `<span class="turnX">${Player1.nick}</span> wins!`;
+                turn = "end";
+            } else if(turn === "x") {
+                winBox.innerHTML = `<span class="turnO">${Player2.nick}</span> wins!`;
+                turn = "end";
+            }
+        } else if(!gameBoard.includes("")){
+            winBox.innerHTML = `<span class="turnO">DRAW</span>`;
+            console.log("DRAW");
+            turn = "end";
+        }
+    }
+
 
     const restart = function(turne, box) {
         const restartBtn = document.createElement("div");
@@ -19,7 +63,7 @@ const gameBoard = (function(){
                 field[i-1].innerText = "";
             }
             turne.innerHTML = `<span class="turnX">${Player1.nick}'s </span> turn!`;
-            turn = true;
+            turn = "x";
         console.log(gameBoard);
         });
         setTimeout(() => {
@@ -61,7 +105,7 @@ const gameBoard = (function(){
             const field = document.createElement("div");
             field.classList.add("field");
             board.appendChild(field);
-            displayController.btnWork(field, gameBoard, i-1, field, turnText, player1Box, player2Box);
+            displayController.btnWork(field, gameBoard, i-1, field, turnText);
         }
         main.setAttribute("class", "");
         main.classList.add("boardOn");
@@ -81,7 +125,7 @@ const gameBoard = (function(){
         }, 500)
     }
 
-    return { render , restart };
+    return { render , restart , checkWin };
 })();
 
 const Player = function(nick) {
@@ -106,25 +150,26 @@ const chooseMode = (function() {
 })();
 
 const displayController = (function(){
-    const btnWork = function(btn, board, index, field, turnBox, p1Box, p2Box) {
+    const btnWork = function(btn, board, index, field, turnBox) {
         btn.addEventListener("click", () => {
-            if(turn) {
+            if(turn === "x") {
                 if(board[index] == ""){
                     board[index] = "x";
                     field.innerHTML = `<p class="x">X<p>`;
                     turnBox.innerHTML = `<span class="turnO">${Player2.nick}'s </span> turn!`
-
-                    console.log(board);
-                    turn = false;
+                    turn = "o";
+                    gameBoard.checkWin(turnBox);
                 }
-            } else {
+            } else if(turn === "o") {
                 if(board[index] == ""){
                     board[index] = "o";
                     field.innerHTML = `<p class="o">O<p>`;
                     turnBox.innerHTML  = `<span class="turnX">${Player1.nick}'s </span> turn!`
-                    console.log(board);
-                    turn = true;
+                    turn = "x";
+                    gameBoard.checkWin(turnBox);
                 }
+            } else if(turn === "end"){
+                console.log("restart");
             }
         })
     }
@@ -220,6 +265,7 @@ const namePlayers = (function() {
 
     return { render };
 })();
+
 
 
 const animate = (function() {
