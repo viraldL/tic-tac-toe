@@ -458,6 +458,32 @@ main {
     box-shadow: 0 8px 10px rgba(255, 255, 255, 0.205) !important;
 }
 
+.backBtn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transform: scale(0);
+} 
+
+.backBtn img {
+    width: 30px;
+}
+
+.backBtn:hover {
+    opacity: 0.5;
+}
+
+.backBtn p {
+    color: var(--w);
+    font-weight: 200;
+    font-size: 0.7rem;
+}
+
 .show {
     transition: all 1s ease-out;
     opacity: 1;

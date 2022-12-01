@@ -81,6 +81,31 @@ const gameBoard = (function(){
         turnText.classList.add("turnText");
         turnText.innerHTML = `<span class="turnX">${Player1.nick}'s </span> turn!`;
 
+        const backBtn = document.createElement("div");
+        backBtn.classList.add("backBtn");
+        backBtn.innerHTML = '<img src="icons/2931166_arrow_back_undo_left_navigation_icon.svg"><p>Back</p>';
+        backBtn.addEventListener("click", () => {
+            for(let i = 1; i <= gameBoard.length; i++) {
+                gameBoard[i-1] = "";
+                const field = document.querySelectorAll(".field");
+                field[i-1].innerText = "";
+            }
+            turn = "x";
+            turnText.classList.add("hide2");
+            board.classList.add("hide2");
+            player1Box.classList.add("hide2");
+            player2Box.classList.add("hide2");
+            backBtn.classList.add("hide2");
+            setTimeout(() => {
+                chooseMode.render();
+            }, 500)
+            setTimeout(() => {
+                chooseMode.botGame.classList.add("show2");
+                chooseMode.twoPlayer.classList.add("show2");
+            }, 1000)
+
+        });
+        document.body.appendChild(backBtn);
 
         //Player names boxes
         const player1Box = document.createElement("div");
@@ -122,6 +147,7 @@ const gameBoard = (function(){
             board.classList.add("show2");
             player1Box.classList.add("show2");
             player2Box.classList.add("show2");
+            backBtn.classList.add("show2");
         }, 500)
     }
 
@@ -136,11 +162,16 @@ const chooseMode = (function() {
     const twoPlayer = document.createElement("div");
     const botGame = document.createElement("div");
     const render = function() {
+        if(document.querySelector(".backBtn") !== null){
+            const backBtn = document.querySelector(".backBtn")
+            document.body.removeChild(backBtn);
+        }
+        main.innerHTML = "";
         twoPlayer.classList.add("twoPlayerBtn");
         botGame.classList.add("botGameBtn");
         twoPlayer.innerText = "2 Players";
         botGame.innerText = "Bot";
-
+        main.setAttribute("class", "");
         main.classList.add("chooseModeOn");
         main.appendChild(twoPlayer);
         main.appendChild(botGame);
@@ -203,6 +234,13 @@ const modeController = (function() {
         setTimeout(() => {
             namePlayers.render();
         }, 500)
+
+        setTimeout(() => {
+            chooseMode.twoPlayer.classList.remove("hide");
+            chooseMode.botGame.classList.remove("slideRight");
+            chooseMode.twoPlayer.classList.remove("show2");
+            chooseMode.botGame.classList.remove("show2");
+        }, 1000)
     })
     chooseMode.botGame.addEventListener("click" , () => {
         chooseMode.twoPlayer.classList.add("slideLeft");
