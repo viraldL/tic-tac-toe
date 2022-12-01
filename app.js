@@ -64,7 +64,7 @@ const gameBoard = (function(){
             }
             turne.innerHTML = `<span class="turnX">${Player1.nick}'s </span> turn!`;
             turn = "x";
-        console.log(gameBoard);
+            restartBtn.classList.remove("restartBtnLight");
         });
         setTimeout(() => {
             restartBtn.classList.add("show2");
@@ -169,7 +169,8 @@ const displayController = (function(){
                     gameBoard.checkWin(turnBox);
                 }
             } else if(turn === "end"){
-                console.log("restart");
+                const restartBtn = document.querySelector(".restartBtn");
+                restartBtn.classList.add("restartBtnLight");
             }
         })
     }

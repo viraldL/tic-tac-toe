@@ -453,6 +453,11 @@ main {
     width: 80px;
 }
 
+.restartBtnLight {
+    transform: scale(1.1) !important;
+    box-shadow: 0 8px 10px rgba(255, 255, 255, 0.205) !important;
+}
+
 .show {
     transition: all 1s ease-out;
     opacity: 1;
