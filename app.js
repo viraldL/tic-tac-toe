@@ -96,10 +96,13 @@ const gameBoard = (function () {
             player1Box.classList.add("hide2");
             player2Box.classList.add("hide2");
             backBtn.classList.add("hide2");
+            console.log("es1")
             setTimeout(() => {
+                console.log("es2")
                 chooseMode.render();
             }, 500);
             setTimeout(() => {
+                console.log("es3")
                 chooseMode.botGame.classList.add("show2");
                 chooseMode.twoPlayer.classList.add("show2");
             }, 1000);
@@ -174,6 +177,7 @@ const chooseMode = (function () {
             const backBtn = document.querySelector(".backBtn");
             document.body.removeChild(backBtn);
         }
+        console.log("es4")
         main.innerHTML = "";
         twoPlayer.classList.add("twoPlayerBtn");
         botGame.classList.add("botGameBtn");
@@ -314,6 +318,13 @@ const modeController = (function () {
         setTimeout(() => {
             namePlayers.renderBot();
         }, 500);
+        
+        setTimeout(() => {
+            chooseMode.twoPlayer.classList.remove("slideLeft");
+            chooseMode.botGame.classList.remove("hide");
+            chooseMode.twoPlayer.classList.remove("show2");
+            chooseMode.botGame.classList.remove("show2");
+        }, 1000);
     });
 })();
 
