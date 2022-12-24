@@ -3,6 +3,7 @@ let Player1;
 let Player2;
 let Bot = false;
 let turn = "x";
+const particlesBox = document.querySelector("#tsparticles");
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -35,7 +36,7 @@ const gameBoard = (function () {
         }
 
         if (roundWon) {
-            console.log(turn);
+            particlesBox.style.opacity = "1";
             if (turn === "o") {
                 winBox.innerHTML = `<span class="turnX">${Player1.nick}</span> wins!`;
                 turn = "end";
@@ -45,7 +46,6 @@ const gameBoard = (function () {
             }
         } else if (!gameBoard.includes("")) {
             winBox.innerHTML = '<span class="turnO">DRAW</span>';
-            console.log("DRAW");
             turn = "end";
         }
     };
@@ -56,6 +56,7 @@ const gameBoard = (function () {
         restartBtn.classList.add("restartBtn");
         box.appendChild(restartBtn);
         restartBtn.addEventListener("click", () => {
+            particlesBox.style.opacity = "0";
             for (let i = 1; i <= gameBoard.length; i++) {
                 gameBoard[i - 1] = "";
                 const field = document.querySelectorAll(".field");
@@ -96,13 +97,10 @@ const gameBoard = (function () {
             player1Box.classList.add("hide2");
             player2Box.classList.add("hide2");
             backBtn.classList.add("hide2");
-            console.log("es1")
             setTimeout(() => {
-                console.log("es2")
                 chooseMode.render();
             }, 500);
             setTimeout(() => {
-                console.log("es3")
                 chooseMode.botGame.classList.add("show2");
                 chooseMode.twoPlayer.classList.add("show2");
             }, 1000);
@@ -177,7 +175,6 @@ const chooseMode = (function () {
             const backBtn = document.querySelector(".backBtn");
             document.body.removeChild(backBtn);
         }
-        console.log("es4")
         main.innerHTML = "";
         twoPlayer.classList.add("twoPlayerBtn");
         botGame.classList.add("botGameBtn");
