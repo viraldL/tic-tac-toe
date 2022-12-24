@@ -242,6 +242,7 @@ footer .footerIcons span a img:hover {
     font-weight: 800;
     cursor: pointer;
     transition: all 0.2s ease-out;
+    -webkit-appearance: none;
 }
 
 .playerForm input[type="submit"]:hover {
@@ -287,6 +288,7 @@ footer .footerIcons span a img:hover {
     padding: 2px 5px;
     outline: none;
     transition: all 0.5s ease-out;
+    z-index: 2;
 }
 
 .inputPlayer:focus { 
@@ -539,6 +541,10 @@ main {
     }
 
     .board .field {
+        font-size: 3rem;
+    }
+
+    header::after {
         font-size: 3rem;
     }
 }
