@@ -92,6 +92,8 @@ const gameBoard = (function () {
                 field[i - 1].innerText = "";
             }
             turn = "x";
+            Bot = false;
+            particlesBox.style.opacity = "0";
             turnText.classList.add("hide2");
             board.classList.add("hide2");
             player1Box.classList.add("hide2");

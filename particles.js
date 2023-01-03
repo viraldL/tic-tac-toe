@@ -579,4 +579,3 @@ tsParticles.load("tsparticles", {
 
     }
 });
-const particles = tsParticles.domItem(0);
